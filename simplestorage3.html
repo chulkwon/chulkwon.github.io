@@ -8,6 +8,7 @@
   <style>
     body {margin-left:50px;}
     #storedData {font-size:300%; margin-right:10px;}
+    #newContractAddr {width: 300px; margin-right:10px; text-align:right;}
     #newValue {width: 200px; margin-right:10px; text-align:right;}
   </style>
 </head>
@@ -15,6 +16,11 @@
 <h3>Simple Storage dApp 예제</h3>
 <ul>
   <li>기본 컨트랙트 주소: <span id="contractAddr"></span></li>
+  <li><button onclick="displayContract()">컨트랙트 히스토리</button>
+    <div id="callbackContract">
+    </div>
+  </li>
+  <li><input id="newContractAddr" type="text"><button onclick="setNewContractAddr()">새 컨트랙트 주소 적용</button>
   <li>내 어카운트 주소: <span id="accountAddr"></span></li>
   <li>컨트랙트에 저장된 값: <span id="storedData"></span>
     <button onclick="getValue()">새로고침</button> (현재블록: <span id="lastBlock"></span>)</li>
@@ -38,7 +44,7 @@ HTML 소스<br>
 <script src="https://cdn.rawgit.com/ethereum/web3.js/develop/dist/web3.js"></script>
 <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"></script>
 <script>
-var contractAddress = '0x81b7e08f65bdf5648606c89998a9cc8164397647';
+var contractAddress = '0xa501083e4718c49add1537a7f246c1b827b06cc7b43012cbfcb07626c1574b45';
 var abi = [{"constant":false,"inputs":[{"name":"x","type":"uint256"}],"name":"set","outputs":[],"payable":false,"type":"function"},{"constant":true,"inputs":[],"name":"get","outputs":[{"name":"","type":"uint256"}],"payable":false,"type":"function"}];
 var simpleStorageContract;
 var simpleStorage;
@@ -65,7 +71,6 @@ function startApp() {
   web3.eth.getAccounts(function(e,r){
     document.getElementById('accountAddr').innerHTML = getLink(r[0]);
   });
-
   getValue();
 }
 
